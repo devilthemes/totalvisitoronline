@@ -38,14 +38,14 @@ class TotalUserOnline extends Module
 	{
 		$this->name = 'totaluseronline';
 		$this->tab = 'front_office_features';
-		$this->version = 0.1;
-		$this->author = 'PrestaShop';
+		$this->version = 1.0;
+		$this->author = 'Devil Themes';
 		$this->need_instance = 0;
 
 		parent::__construct();
 		
 		$this->displayName = $this->l('Total User Online');
-		$this->description = $this->l('Adds a block that displays permanent links such as sitemap, contact, etc...');
+		$this->description = $this->l('Total User Online engaged in website');
 		
 		
 	
