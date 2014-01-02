@@ -1,28 +1,5 @@
 <?php
-/*
-* 2007-2013 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2013 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+
 
 if (!defined('_PS_VERSION_'))
 	exit;
@@ -45,7 +22,7 @@ class TotalUserOnline extends Module
 		parent::__construct();
 		
 		$this->displayName = $this->l('Total User Online');
-		$this->description = $this->l('Total User Online engaged in website');
+		$this->description = $this->l('Total User Online in website currently');
 		
 		
 	
@@ -93,28 +70,20 @@ class TotalUserOnline extends Module
         }
         return true;
     }
-	/**
-	* Returns module content for header
-	*
-	* @param array $params Parameters
-	* @return string Content
-	*/
-	
 
-	/**
-	* Returns module content for left column
-	*
-	* @param array $params Parameters
-	* @return string Content
-	*/
-	
 	
 	public function hookFooter($params)
 	{
-		$this->smarty->assign(array(
-				'count' => $this->count
+	
+	if (!$this->isCached('totaluseronline-footer.tpl', $this->getCacheId()))
+			$this->smarty->assign(array(
+				'online_users' => $this->count
 			));
-		return $this->display(__FILE__, 'totaluseronline-footer.tpl', $this->getCacheId('totaluseronline-footer'));
+	
+	
+	
+		
+		return $this->display(__FILE__, 'totaluseronline-footer.tpl', $this->getCacheId());
 	}
 	public function hookLeftColumn($params)
 	{
@@ -128,12 +97,9 @@ class TotalUserOnline extends Module
 
 if (count($this->visitors_online->error) == 0) {
 
-    if ($this->visitors_online->count_users() == 1) {
+    
        $this->count=$this->visitors_online->count_users();
-    }
-    else {
-       $this->count=$this->visitors_online->count_users();
-    }
+   
 }
 else {
     echo "<b>Users online class errors:</b><br /><ul>\r\n";

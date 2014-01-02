@@ -65,9 +65,13 @@ class usersOnline extends ObjectModelCore {
 	}
 	
 	function count_users() {
+	
 		if (count($this->error) == 0) {
-			$count =count(Db::getInstance()->ExecuteS("SELECT DISTINCT ip FROM ". _DB_PREFIX_ ."useronline"));
+			$data =Db::getInstance()->ExecuteS("SELECT DISTINCT ip FROM ". _DB_PREFIX_ ."useronline");
+			
+			$count = count($data);
 			return $count;
+			
 		}
 	}
 
